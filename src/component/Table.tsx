@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import "./../style/Table.css";
 interface IProps {
-  textSearch: string;
-  valSort: string;
-  valueAdd: {};
+  textSearch: any;
+  valSort: any;
+  valueAdd: any;
 }
-const Table: React.FC<IProps> = ({ textSearch, valSort, valueAdd }: any) => {
+const Table: React.FC<IProps> = ({ textSearch, valSort, valueAdd }) => {
   const listNews = [
     {
       id: new Date().valueOf(),
@@ -125,17 +125,16 @@ const Table: React.FC<IProps> = ({ textSearch, valSort, valueAdd }: any) => {
   };
   useEffect(() => {
     if (textSearch !== "") {
-      console.log('rtfff')
       var lisArr = [...listItem];
       lisArr = lisArr.filter((user) => {
         return user.name.toLowerCase().startsWith(textSearch.toLowerCase());
       });
     } else {
-      console.log('opp')
-      lisArr = [...listItem];
+      lisArr = [...listNews];
     }
     setListItem(lisArr);
   }, [textSearch]);
+
   useEffect(() => {
     if (valSort === "1") {
       let newListItem = [...listItem];

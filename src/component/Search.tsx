@@ -1,11 +1,14 @@
-import React, {useState} from 'react'
+import React, {useState, ChangeEvent} from 'react'
 import "./../style/Search.css"
+interface Props {
+  valueSearch: any;
+}
 
-const Search = ({valueSearch}: any) => {
+const Search: React.FC<Props> = ({valueSearch}) => {
   const [valueInput, setValueInput] = useState('');
-  const handleInputChange = (event: any) => {
-    setValueInput(event.target.value)
-    valueSearch(valueInput)
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setValueInput(e.target.value)
+    valueSearch(e.target.value)
   }
   const handleClearInput = () => {
     setValueInput('')
