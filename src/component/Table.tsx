@@ -1,46 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "./../style/Table.css";
+import { TodoItem } from "./../dataType/interface";
 interface IProps {
-  textSearch: any;
-  valSort: any;
-  valueAdd: any;
+  listItem: TodoItem[]
+  setListItem: React.Dispatch<React.SetStateAction<TodoItem[]>>;
 }
-const Table: React.FC<IProps> = ({ textSearch, valSort, valueAdd }) => {
-  const listNews = [
-    {
-      id: new Date().valueOf(),
-      name: "Tìm thấy mảnh vỡ máy bay rơi ở Iran làm 66 người chết",
-      level: 2, // high
-    },
-    {
-      id: new Date().valueOf(),
-      name: "Không còn tranh cướp lộc hoa tre ở lễ hội đền Gióng 2018",
-      level: 0, // low
-    },
-    {
-      id: new Date().valueOf(),
-      name: "Hơn 37.000 người nhập viện vì tai nạn giao thông, đốt pháo",
-      level: 1, // medium
-    },
-    {
-      id: new Date().valueOf(),
-      name: "Gần 200 người chết vì tai nạn giao thông 7 ngày nghỉ Tết",
-      level: 0, // low
-    },
-    {
-      id: new Date().valueOf(),
-      name: "VFF giải ngân 15 tỷ đồng, tiền thưởng tới tay U23 VN trước Tết",
-      level: 2, // high
-    },
-    {
-      id: new Date().valueOf(),
-      name: "F1 muốn tổ chức giải đua xe tại Việt Nam vào năm 2020",
-      level: 1, // medium
-    },
-  ];
+const Table: React.FC<IProps> = ({ listItem, setListItem }) => {;
   const [indexEdit, setIndexEdit] = useState<number>(Infinity);
 
-  const [listItem, setListItem] = useState(listNews);
   const filterLow = (item: number) => {
     switch (item) {
       case 0:
@@ -120,55 +87,6 @@ const Table: React.FC<IProps> = ({ textSearch, valSort, valueAdd }) => {
       );
     });
   };
-  const isObject = (value: any) => {
-    return typeof value === "object" && value !== null;
-  };
-  useEffect(() => {
-    if (textSearch !== "") {
-      var lisArr = [...listItem];
-      lisArr = lisArr.filter((user) => {
-        return user.name.toLowerCase().startsWith(textSearch.toLowerCase());
-      });
-    } else {
-      lisArr = [...listNews];
-    }
-    setListItem(lisArr);
-  }, [textSearch]);
-
-  useEffect(() => {
-    if (valSort === "1") {
-      let newListItem = [...listItem];
-      newListItem = newListItem.sort((a, b) => a.name.localeCompare(b.name));
-      setListItem(newListItem);
-    } else if (valSort === "0") {
-      let newListItem = [...listItem];
-      newListItem = newListItem.sort((a, b) => b.name.localeCompare(a.name));
-      setListItem(newListItem);
-    } else if (valSort === "3") {
-      let newListItem = [...listItem];
-      newListItem = newListItem.sort((a, b) => b.level - a.level);
-      setListItem(newListItem);
-    } else if (valSort === "2") {
-      let newListItem = [...listItem];
-      newListItem = newListItem.sort((a, b) => a.level - b.level);
-      setListItem(newListItem);
-    }
-  }, [valSort]);
-
-  useEffect(() => {
-    if (isObject(valueAdd)) {
-      if (valueAdd.value || valueAdd.level) {
-        const obj = {
-          id: new Date().valueOf(),
-          name: valueAdd?.value,
-          level: valueAdd?.level,
-        };
-        let newListItem = [...listItem, obj];
-        setListItem(newListItem);
-      }
-    }
-  }, [valueAdd]);
-
   return (
     <div className="wrap-table">
       <div className="wrap-table__heading">List Item</div>
