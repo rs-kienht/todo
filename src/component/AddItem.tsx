@@ -1,10 +1,12 @@
 import React, { useState, ChangeEvent } from "react";
 import "./../style/AddItem.css";
+import { TodoItem } from "./../dataType/interface";
 
 interface IProps {
-  itemAddValue: any
+  listItem: TodoItem[]
+  setListItem: React.Dispatch<React.SetStateAction<TodoItem[]>>;
 }
-const AddItem: React.FC<IProps> = ({itemAddValue}) => {
+const AddItem: React.FC<IProps> = ({listItem, setListItem}) => {
   const [statusClickAdd, setClickStatus] = useState<boolean>(false);
   const [valueSelect, setValueSelect] = useState<string>('');
   const [valueInput, setValueInput] = useState<string>('');
@@ -16,10 +18,11 @@ const AddItem: React.FC<IProps> = ({itemAddValue}) => {
   }
   const handleSubmitAddForm = () => {
     const itemAdd = {
-      value: valueInput,
+      id: new Date().valueOf(),
+      name: valueInput,
       level: +valueSelect|| 0
     }
-    itemAddValue(itemAdd)
+    setListItem([...listItem, itemAdd])
     setValueInput('')
   }
   const handleSetValueInput = (e: ChangeEvent<HTMLInputElement>) => {

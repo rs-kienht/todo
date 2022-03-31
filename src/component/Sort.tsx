@@ -1,8 +1,29 @@
 import React from "react";
-
-const Sort = ({ sortValue }: any) => {
+import { TodoItem } from "./../dataType/interface";
+interface IProps {
+  listItem: TodoItem[]
+  setListItem: React.Dispatch<React.SetStateAction<TodoItem[]>>;
+}
+const Sort:React.FC<IProps> = ({ listItem, setListItem }) => {
   const handleChangeSelect = (e: any) => {
-    sortValue(e.target.value);
+    const val = e.target.value;
+    if(val === '1') {
+      let newListItem = [...listItem];
+      newListItem = newListItem.sort((a, b) => a.name.localeCompare(b.name));
+      setListItem(newListItem)
+    } else if(val === '0') {
+      let newListItem = [...listItem];
+      newListItem = newListItem.sort((a, b) => a.name.localeCompare(b.name));
+      setListItem(newListItem)
+    } else if (val === "3") {
+      let newListItem = [...listItem];
+      newListItem = newListItem.sort((a, b) => b.level - a.level);
+      setListItem(newListItem);
+    } else if (val === "2") {
+      let newListItem = [...listItem];
+      newListItem = newListItem.sort((a, b) => a.level - b.level);
+      setListItem(newListItem);
+    }
   };
   const options = [
     {
